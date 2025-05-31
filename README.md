@@ -1,4 +1,5 @@
 # Laporan Proyek Machine Learning - Dewi Puspita
+![movie](https://th.bing.com/th/id/OIP.5N6v-887sRZmd_LF0QROQgHaE8?rs=1&pid=ImgDetMain)
 
 ## 1. Project Overview
 ### 1.1. Latar Belakang
@@ -95,3 +96,81 @@ Dari output, terlihat adanya 4 kolom numerik dengan tipe float64, yakni `revenue
 Dari data yang didapat terlihat bahwa adanya 45.436 data yang berbeda, 93 bahasa yang berbeda, dan 42.278 judul berbeda.
 
 ## 4. Data Preparation
+
+### 4.1. Sampling: Mengambil 10.000 Data Secara Acak
+
+Dataset asli yang terdiri dari lebih dari 45.000 baris (entri) diambil sampel sebanyak 10.000 baris untuk meningkatkan edisiensi pemrosesan dan kecepatan pelatihan model.
+
+Alasan dilakukannya adalah untuk mengurangi beban komputasi dan tetap menjaga keberagaman data karena pengambilan dilakukan secara acak (random_state ditetapkan agar hasil konsisten).
+
+### 4.2. Seleksi Fitur: Mengambil Kolom yang Relevan
+
+Pada proyek, hanya kolom `id`, `title`, dan `original_language` yang diambil karena proyek menggunakan pendekatan Content-Based Filtering berdasarkan bahasa film.
+
+Tahapan ini dilakukan agar dapat fokus pada fitur yang digunakan untuk sistem rekomendasi dan menghindari noise dari kolom-kolom lain yang tidak diperlukan.
+
+### 4.3. Menghapus Nilai Kosong (Missing Value) dan Duplikasi (Duplicate Values)
+
+Pada tahapan ini, baris yang memiliki nilai kosong di salah satu dari tiga kolom utama dihapus karena dapat menyebabkan error dalam proses vektorisasi atau similarity. Selain itu, duplikasi data juga dihapus agar setiap film hanya muncul sekali dalam dataset, sehingga hasil perhitungan similarity tidak bias atau berulang.
+
+Tahapan ini dilakukan supaya data yang hilang tidak dapat digunakan dalam pemrosesan teks (TF-IDF) dan menjaga integritas hasil model, serta menghindari hasil rekomendasi yang menampilkan film yang sama lebih dari sekali dan memastikan hasil rekomendasi lebih bervariasi.
+
+### 4.4. TF-IDF Vectorization pada Kolom original_language
+
+Kolom language diubah menjadi vektor numerik menggunakan TF-IDF (Term Frequency-Inverse Document Frequency), yang memungkinkan sistem untuk menghitung kemiripan antar bahasa.
+
+Tahapan ini dilakukan karena TF-IDF adalah teknik umum dalam Content-Based Filtering untuk merepresentasikan data teks dalam bentuk numerik. Meski `original_language` hanya terdiri dari satu token (misalnya "en"), TF-IDF tetap bisa menangkap pentingnya kata berdasarkan kemunculan globalnya.
+
+
+## 5. Modeling and Result
+Untuk menyelesaikan permasalahan pengguna dalam menemukan film yang relevan dengan preferensi mereka, proyek ini membangun sistem rekomendasi berbasis konten (Content-Based Filtering). Sistem ini bekerja dengan menganalisis kemiripan antar film berdasarkan atribut konten yang dimiliki.
+
+Dalam proyek ini, atribut yang digunakan adalah `original_language`, yaitu bahasa asli film. Meskipun sederhana, fitur ini dapat memberikan rekomendasi awal berdasarkan kemiripan bahasa, yang seringkali berkorelasi dengan gaya penceritaan, budaya, dan format produksi film.
+
+### Tahapan Sistem Rekoemndasi: Content-Based Filtering dengan TF-IDF + Cosine Similarity
+
+1. Membuat Matriks Kemiripan
+
+Pada tahap ini, dilakukan perhitungan kemiripan antar film dengan menggunakan cosine similarity. Matriks tfidf_matrix sebelumnya telah dibentuk dari kolom `language` menggunakan teknik TF-IDF vectorization, sehingga setiap film diwakili oleh vektor berdasarkan bahasa aslinya.
+
+Cosine similarity mengukur sudut antar vektor, menghasilkan nilai antara 0 (tidak mirip) hingga 1 (sangat mirip) dan hasilnya berupa matriks kemiripan 2D yang berisi skor kemiripan antara semua pasangan film.
+
+2. Membuat DataFrame dari Matriks Kemiripan
+
+Matriks kemiripan diubah menjadi DataFrame agar lebih mudah dibaca dan digunakan. Baris dan kolom diberi label `title` (judul film), sehingga setiap nilai `[i,j]` menunjukkan kemiripan antara film ke-i dan film ke-j. Dengan struktur ini, pengguna cukup menyebutkan judul film tertentu, dan sistem dapat langsung menampilkan film lain yang paling mirip dengannya.
+
+3. Membuat Fungsi Rekomendasi
+
+ Fungsi `recommend_movies()` digunakan untuk menghasilkan rekomendasi berupa:
+- Menerima input berupa judul film.
+- Mengambil seluruh skor kemiripan antara film input dan film lainnya dari `cosine_sim_df`.
+- Mengurutkan hasil dari skor tertinggi ke terendah, dan menghapus film itu sendiri dari hasil.
+- Mengambil 10 film teratas (Top-N Recommendation) sebagai hasil akhir.
+
+## 6. Evaluation
+Untuk mengukur sejauh mana sistem rekomendasi yang dibangun dapat memberikan hasil yang relevan, dilakukan evaluasi dengan dua metrik utama yang sesuai dengan pendekatan Content-Based Filtering berbasis atribut konten. Dua metrik yang digunakan dalam proyek ini adalah:
+- Precision@10
+- Average Cosine Similarity
+
+### 6.1. Precision@10
+Precision@10 mengukur seberapa banyak dari 10 rekomendasi teratas yang benar-benar relevan. Karena tidak ada data preferensi pengguna (seperti rating), maka relevansi didefinisikan sebagai film yang memiliki `original_language` yang sama dengan film input.
+
+Formulanya adalah:
+
+$\text{Precision@k} = \frac{\text{Jumlah item relevan dalam Top-}k}{k}$
+
+### 6.2. Average Cosine Similarity
+Average Cosine Similarity mengukur skor rata-rata cosine similarity dari film input terhadap 10 film rekomendasi teratas. Ini menunjukkan sejauh mana film-film yang direkomendasikan mirip secara numerik dalam representasi vektor kontennya.
+
+Formulanya adalah:
+
+$\text{Average Cosine Similarity} = \frac{1}{k} \sum_{i=1}^{k} \cos(\theta_i)$
+
+di mana cos(𝜃𝑖) adalah skor cosine similarity antara film input dengan film ke-i dalam Top-k.
+
+### 6.3. Hasil Evaluasi
+Dari contoh pengujian dengan input film berjudul "Elephant" adalah:
+- Precision@10: 1.0
+- Average Cosine Similarity: 1.0
+
+Hasil menunjukkan bahwa semua rekomendasi memiliki bahasa yang sama dengan film input yang berarti sistem memberikan rekomendasi yang sangat mirip dari sisi fitur yang digunakan. Cosine similarity juga maksimal karena `original_language` hanya satu kata, sehingga TF-IDF menghasilkan nilai identik bagi bahasa yang sama.

@@ -4,9 +4,9 @@
 ## 1. Project Overview
 ### 1.1. Latar Belakang
 
-Pertumbuhan besar-besaran dalam jumlah konten digital, terutama film telah menciptakan kebutuhan akan sistem yang dapat menyaring dan menyajikan konten yang relevan secara efisien. Layanan seperti Netflix dan Amazon Prime menggunakan sistem rekomendasi untuk membantu pengguna menemukan konten yang sesuai dengan preferensi mereka (Ricci, Rokach, & Shapira, 2015). Sistem ini menjadi penting karena mampu mempersonalisasi pengalaman pengguna berdasarkan data dan perilaku sebelumnya.
+Pertumbuhan besar-besaran dalam jumlah konten digital, terutama film telah menciptakan kebutuhan akan sistem yang dapat menyaring dan menyajikan konten yang relevan secara efisien. Layanan seperti Netflix dan Amazon Prime menggunakan sistem rekomendasi untuk membantu pengguna menemukan konten yang sesuai dengan preferensi mereka [(Ricci, Rokach, & Shapira, 2015)](https://doi.org/10.1007/978-1-4899-7637-6). Sistem ini menjadi penting karena mampu mempersonalisasi pengalaman pengguna berdasarkan data dan perilaku sebelumnya.
 
-Content-Based Filtering (CBF) merupakan salah satu pendekatan dalam sistem rekomendasi yang merekomendasikan item berdasarkan kemiripan atribut konten. Proyek ini mengimplementasikan CBF dengan memanfaatkan fitur `original_language` dari dataset film sebagai dasar untuk mengukur kemiripan antar film. Meskipun sederhana, pendekatan ini memperkenalkan dasar penting dalam membangun sistem rekomendasi secara bertahap (Aggarwal, 2016).
+Content-Based Filtering (CBF) merupakan salah satu pendekatan dalam sistem rekomendasi yang merekomendasikan item berdasarkan kemiripan atribut konten. Proyek ini mengimplementasikan CBF dengan memanfaatkan fitur `original_language` dari dataset film sebagai dasar untuk mengukur kemiripan antar film. Meskipun sederhana, pendekatan ini memperkenalkan dasar penting dalam membangun sistem rekomendasi secara bertahap [(Aggarwal, 2016)](https://doi.org/10.1007/978-3-319-29659-3).
 
 Sistem rekomendasi memiliki banyak manfaat strategis, mulai dari meningkatkan engagement pengguna melalui rekomendasi yang dipersonalisasi, mengurangi informasi berlebih (information overload), dan meningkatkan efisiensi penemuan konten yang relevan dan sesuai preferensi.
 
@@ -174,3 +174,7 @@ Dari contoh pengujian dengan input film berjudul "Elephant" adalah:
 - Average Cosine Similarity: 1.0
 
 Hasil menunjukkan bahwa semua rekomendasi memiliki bahasa yang sama dengan film input yang berarti sistem memberikan rekomendasi yang sangat mirip dari sisi fitur yang digunakan. Cosine similarity juga maksimal karena `original_language` hanya satu kata, sehingga TF-IDF menghasilkan nilai identik bagi bahasa yang sama.
+
+## Referensi
+Aggarwal, C. C. (2016). Recommender systems: The textbook. Springer. https://doi.org/10.1007/978-3-319-29659-3
+Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender Systems Handbook (2nd ed.). Springer. https://doi.org/10.1007/978-1-4899-7637-6

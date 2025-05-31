@@ -12,6 +12,11 @@ Sistem rekomendasi memiliki banyak manfaat strategis, mulai dari meningkatkan en
 
 Proyek ini dibuat untuk memberikan fondasi untuk sistem yang lebih kompleks, misalnya penggabungan data sinopsis (overview), genre, atau rating pengguna (collaborative filtering). Selain itu, sistem rekomendasi terbukti mampu meningkatkan nilai bisnis digital dan retensi pengguna.
 
+## Referensi
+Aggarwal, C. C. (2016). Recommender systems: The textbook. Springer. https://doi.org/10.1007/978-3-319-29659-3
+
+Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender Systems Handbook (2nd ed.). Springer. https://doi.org/10.1007/978-1-4899-7637-6
+
 ## 2. Business Understanding 
 ### 2.1. Problem Statement:
 1. Pengguna layanan streaming sering mengalami kebingungan dan kebanjiran informasi (information overload) saat memilih film karena jumlah pilihan yang sangat besar dan tidak terstruktur.
@@ -47,7 +52,8 @@ Model dievaluasi menggunakan metrik Precision@10 dan Average Cosine Similarity u
 Pada proyek ini, dataset yang digunakan berasal dari **Kaggle** dengan judul **Movie Recommendation Data**, yang dapat diunduh melalui tautan berikut:
 https://www.kaggle.com/datasets/rohan4050/movie-recommendation-data
 
-Dataset ini berisi informasi mengenai berbagai parameters dengan mengambil input judul film dan memberikan output rekomendasi film berdasarkan nilai kemiripan (bahasa).
+Dataset ini berisi informasi mengenai berbagai parameters dengan mengambil input judul film dan memberikan output rekomendasi film berdasarkan nilai kemiripan (bahasa). Adapun detail dari dataset adalah:
+- Dataset berjumlah 45.466 baris data dan 24 kolom.
 
 ### Tahapan Data Understanding
 
@@ -88,7 +94,7 @@ Dari output, terlihat adanya 4 kolom numerik dengan tipe float64, yakni `revenue
 
 3. Missing Value dan Duplicate
 
-- **Missing Value**: Hasil dari pengecekan menunjukkan bahwa terdapat beberapa kolom yang memiliki missing value, seperti `original_language` yang memiliki 11 missing value dan `title` yang memiliki 6 missing value.
+- **Missing Value**: Hasil dari pengecekan menunjukkan bahwa terdapat beberapa kolom yang memiliki missing value, seperti `belongs_to_collection` dengan 40.972 missing value, `homepage` 37.684 missing value, imdb_id 17 missing value, `original_language` yang memiliki 11 missing value, `overview` 954, `popularity` 5, `poster_path` 386, `production_companies` 3, `production countries` 3, `release_date` 87, `revenue` 6, `runtime` 263, `spoken_languages` 6, `status` 87, `tagline` 25.054, dan `title`, `video`, `vote_average` dan `vote_count` yang memiliki 6 missing value.
 - **Duplicate**: Dari pengecekan, didapat bahwa dataset memiliki total 13 entri duplikat.
 
 4. Distribusi Judul dan Bahasa Unik
@@ -174,8 +180,3 @@ Dari contoh pengujian dengan input film berjudul "Elephant" adalah:
 - Average Cosine Similarity: 1.0
 
 Hasil menunjukkan bahwa semua rekomendasi memiliki bahasa yang sama dengan film input yang berarti sistem memberikan rekomendasi yang sangat mirip dari sisi fitur yang digunakan. Cosine similarity juga maksimal karena `original_language` hanya satu kata, sehingga TF-IDF menghasilkan nilai identik bagi bahasa yang sama.
-
-## Referensi
-Aggarwal, C. C. (2016). Recommender systems: The textbook. Springer. https://doi.org/10.1007/978-3-319-29659-3
-
-Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender Systems Handbook (2nd ed.). Springer. https://doi.org/10.1007/978-1-4899-7637-6

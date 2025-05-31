@@ -105,19 +105,25 @@ Dari data yang didapat terlihat bahwa adanya 45.436 data yang berbeda, 93 bahasa
 
 ### 4.1. Sampling: Mengambil 10.000 Data Secara Acak
 
-Dataset asli yang terdiri dari lebih dari 45.000 baris (entri) diambil sampel sebanyak 10.000 baris untuk meningkatkan edisiensi pemrosesan dan kecepatan pelatihan model.
+Dataset asli yang terdiri dari lebih dari 45.000 baris (entri) diambil sampel sebanyak 10.000 baris dengan `movie.sample(n=10000, random_state=42)` untuk meningkatkan efisiensi pemrosesan dan kecepatan pelatihan model.
 
 Alasan dilakukannya adalah untuk mengurangi beban komputasi dan tetap menjaga keberagaman data karena pengambilan dilakukan secara acak (random_state ditetapkan agar hasil konsisten).
 
 ### 4.2. Seleksi Fitur: Mengambil Kolom yang Relevan
 
-Pada proyek, hanya kolom `id`, `title`, dan `original_language` yang diambil karena proyek menggunakan pendekatan Content-Based Filtering berdasarkan bahasa film.
+Pada proyek, hanya kolom `id`, `title`, dan `original_language` yang diambil dengan code
+`movie_clean = pd.DataFrame({
+    'id': movie_new['id'],
+    'title': movie_new['title'],
+    'language': movie_new['original_language']
+})`
+Hal ini dilakukan karena proyek menggunakan pendekatan Content-Based Filtering berdasarkan bahasa film.
 
 Tahapan ini dilakukan agar dapat fokus pada fitur yang digunakan untuk sistem rekomendasi dan menghindari noise dari kolom-kolom lain yang tidak diperlukan.
 
 ### 4.3. Menghapus Nilai Kosong (Missing Value) dan Duplikasi (Duplicate Values)
 
-Pada tahapan ini, baris yang memiliki nilai kosong di salah satu dari tiga kolom utama dihapus karena dapat menyebabkan error dalam proses vektorisasi atau similarity. Selain itu, duplikasi data juga dihapus agar setiap film hanya muncul sekali dalam dataset, sehingga hasil perhitungan similarity tidak bias atau berulang.
+Pada tahapan ini, baris yang memiliki nilai kosong di salah satu dari tiga kolom utama dihapus dengan `.dropna()` karena dapat menyebabkan error dalam proses vektorisasi atau similarity. Selain itu, duplikasi data juga dihapus dengan `.drop_duplicates()` agar setiap film hanya muncul sekali dalam dataset, sehingga hasil perhitungan similarity tidak bias atau berulang.
 
 Tahapan ini dilakukan supaya data yang hilang tidak dapat digunakan dalam pemrosesan teks (TF-IDF) dan menjaga integritas hasil model, serta menghindari hasil rekomendasi yang menampilkan film yang sama lebih dari sekali dan memastikan hasil rekomendasi lebih bervariasi.
 
@@ -126,6 +132,8 @@ Tahapan ini dilakukan supaya data yang hilang tidak dapat digunakan dalam pemros
 Kolom language diubah menjadi vektor numerik menggunakan TF-IDF (Term Frequency-Inverse Document Frequency), yang memungkinkan sistem untuk menghitung kemiripan antar bahasa.
 
 Tahapan ini dilakukan karena TF-IDF adalah teknik umum dalam Content-Based Filtering untuk merepresentasikan data teks dalam bentuk numerik. Meski `original_language` hanya terdiri dari satu token (misalnya "en"), TF-IDF tetap bisa menangkap pentingnya kata berdasarkan kemunculan globalnya.
+
+Tahapan ini dilakukan dengan inisiasi TF-IDF Vectorizer terlebih dahulu, lalu model dilatih pada data. Lalu data teks diubah menjadi matriks vektor supaya dapat melatih dan langsung mentransformasikan data ke bentuk matriks TF-IDF yang setelahnya matriks TF-IDF diubah ke bentuk dense (penuh).
 
 
 ## 5. Modeling and Result

@@ -177,4 +177,5 @@ Hasil menunjukkan bahwa semua rekomendasi memiliki bahasa yang sama dengan film 
 
 ## Referensi
 Aggarwal, C. C. (2016). Recommender systems: The textbook. Springer. https://doi.org/10.1007/978-3-319-29659-3
+
 Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender Systems Handbook (2nd ed.). Springer. https://doi.org/10.1007/978-1-4899-7637-6

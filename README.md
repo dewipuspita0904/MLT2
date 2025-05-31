@@ -161,6 +161,10 @@ Matriks kemiripan diubah menjadi DataFrame agar lebih mudah dibaca dan digunakan
 - Mengurutkan hasil dari skor tertinggi ke terendah, dan menghapus film itu sendiri dari hasil.
 - Mengambil 10 film teratas (Top-N Recommendation) sebagai hasil akhir.
 
+4. Contoh Output Rekomendasi
+Di tahap ini, hasil rekomendasi berdasarkan input judul film akan ditampilkan.
+![image](https://github.com/user-attachments/assets/429b490d-3e60-4bb8-a157-ade4daaacc32)
+
 ## 6. Evaluation
 Untuk mengukur sejauh mana sistem rekomendasi yang dibangun dapat memberikan hasil yang relevan, dilakukan evaluasi dengan dua metrik utama yang sesuai dengan pendekatan Content-Based Filtering berbasis atribut konten. Dua metrik yang digunakan dalam proyek ini adalah:
 - Precision@10

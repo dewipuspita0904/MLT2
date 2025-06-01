@@ -178,18 +178,8 @@ Formulanya adalah:
 
 $\text{Precision@k} = \frac{\text{Jumlah item relevan dalam Top-}k}{k}$
 
-### 6.2. Average Cosine Similarity
-Average Cosine Similarity mengukur skor rata-rata cosine similarity dari film input terhadap 10 film rekomendasi teratas. Ini menunjukkan sejauh mana film-film yang direkomendasikan mirip secara numerik dalam representasi vektor kontennya.
-
-Formulanya adalah:
-
-$\text{Average Cosine Similarity} = \frac{1}{k} \sum_{i=1}^{k} \cos(\theta_i)$
-
-di mana cos(𝜃𝑖) adalah skor cosine similarity antara film input dengan film ke-i dalam Top-k.
-
-### 6.3. Hasil Evaluasi
+### 6.2. Hasil Evaluasi
 Dari contoh pengujian dengan input film berjudul "Elephant" adalah:
 - Precision@10: 1.0
-- Average Cosine Similarity: 1.0
 
-Hasil menunjukkan bahwa semua rekomendasi memiliki bahasa yang sama dengan film input yang berarti sistem memberikan rekomendasi yang sangat mirip dari sisi fitur yang digunakan. Cosine similarity juga maksimal karena `original_language` hanya satu kata, sehingga TF-IDF menghasilkan nilai identik bagi bahasa yang sama.
+Hasil menunjukkan bahwa sistem rekomendasi memiliki bahasa yang sama dengan film input yang berarti sistem memberikan rekomendasi yang sangat mirip dari sisi fitur yang digunakan.

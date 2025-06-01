@@ -164,6 +164,7 @@ Matriks kemiripan diubah menjadi DataFrame agar lebih mudah dibaca dan digunakan
 4. Contoh Output Rekomendasi
    
 Di tahap ini, hasil rekomendasi berdasarkan input judul film ditampilkan, dalam hal ini judul film yang dimaksud adalah "Elephant".
+
 ![image](https://github.com/user-attachments/assets/429b490d-3e60-4bb8-a157-ade4daaacc32)
 
 ## 6. Evaluation

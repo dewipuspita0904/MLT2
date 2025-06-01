@@ -46,7 +46,7 @@ Sistem akan mengambil 10 film teratas yang paling mirip dengan film input (kecua
 
 5. Evaluasi Awal
 
-Model dievaluasi menggunakan metrik Precision@10 dan Average Cosine Similarity untuk menilai sejauh mana sistem memberikan rekomendasi yang relevan.
+Model dievaluasi menggunakan metrik Precision@10 untuk menilai sejauh mana sistem memberikan rekomendasi yang relevan.
 
 ## 3. Data Understanding
 Pada proyek ini, dataset yang digunakan berasal dari **Kaggle** dengan judul **Movie Recommendation Data**, yang dapat diunduh melalui tautan berikut:
@@ -167,10 +167,8 @@ Di tahap ini, hasil rekomendasi berdasarkan input judul film akan ditampilkan.
 ![image](https://github.com/user-attachments/assets/429b490d-3e60-4bb8-a157-ade4daaacc32)
 
 ## 6. Evaluation
-Untuk mengukur sejauh mana sistem rekomendasi yang dibangun dapat memberikan hasil yang relevan, dilakukan evaluasi dengan dua metrik utama yang sesuai dengan pendekatan Content-Based Filtering berbasis atribut konten. Dua metrik yang digunakan dalam proyek ini adalah:
-- Precision@10
-- Average Cosine Similarity
-
+Untuk mengukur sejauh mana sistem rekomendasi yang dibangun dapat memberikan hasil yang relevan, dilakukan evaluasi dengan dua metrik utama yang sesuai dengan pendekatan Content-Based Filtering berbasis atribut konten. Dua metrik yang digunakan dalam proyek ini adalah Precision@10.
+  
 ### 6.1. Precision@10
 Precision@10 mengukur seberapa banyak dari 10 rekomendasi teratas yang benar-benar relevan. Karena tidak ada data preferensi pengguna (seperti rating), maka relevansi didefinisikan sebagai film yang memiliki `original_language` yang sama dengan film input.
 
